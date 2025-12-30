@@ -1,7 +1,7 @@
 import {Console} from "@woowacourse/mission-utils";
 
-async function printMenu(splitedMenu) {
-  Console.print("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n");
+async function printMenu(date, splitedMenu) {
+  Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`);
   Console.print("<주문 메뉴>");
   for (let i = 0; i < splitedMenu.length; i++) {
     Console.print(`${splitedMenu[i][0]} ${splitedMenu[i][1]}개`);
@@ -53,6 +53,7 @@ async function printEventBadge(badge) {
 }
 
 export async function OutputView(
+  date,
   splitedMenu,
   total,
   badge,
@@ -63,7 +64,7 @@ export async function OutputView(
   weekendDiscount,
   dayDiscount
 ) {
-  await printMenu(splitedMenu);
+  await printMenu(date, splitedMenu);
   await printTotalPrice(total);
   await printPresentMenu(champagne);
   await printBenefit(christmasDiscount, starDiscount, weekendDiscount, dayDiscount, champagne, champagnePrice);

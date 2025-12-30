@@ -1,5 +1,4 @@
 import {DESSERT, DRINK, MAIN} from "../data/menu.js";
-import {Console} from "@woowacourse/mission-utils";
 
 async function getBadge(champagnePrice, christmasDiscount, starDiscount, weekendDiscount, dayDiscount) {
   const total = champagnePrice + christmasDiscount + starDiscount + weekendDiscount + dayDiscount;
@@ -44,6 +43,8 @@ async function getDateDiscount(menu, selectedMenu) {
 }
 
 export async function discount(splitedMenu, total, date) {
+  if (total < 10000) return ["없음", "없음", 0, 0, 0, 0, 0];
+
   const champagne = await getChampagne(total);
   let champagnePrice = 0;
   if (champagne !== '없음') champagnePrice = await getChampagnePrice();
@@ -64,14 +65,6 @@ export async function discount(splitedMenu, total, date) {
 
   const badge = await getBadge(champagnePrice, christmasDiscount, starDiscount, weekendDiscount, dayDiscount);
 
-  Console.print(`splitedMenu: ${splitedMenu}`);
-  Console.print(`badge: ${badge}`);
-  Console.print(`Champagne: ${champagne}`);
-  Console.print(`christmasDiscount: ${christmasDiscount}`);
-  Console.print(`starDiscount: ${starDiscount}`);
-  Console.print(`weekendDiscount: ${weekendDiscount}`);
-  Console.print(`dayDiscount: ${dayDiscount}`);
-
   return [
     badge,
     champagne,
@@ -81,14 +74,4 @@ export async function discount(splitedMenu, total, date) {
     weekendDiscount,
     dayDiscount
   ];
-
-  /*
-  Console.print(`splitedMenu: ${splitedMenu}`);
-  Console.print(`badge: ${badge}`);
-  Console.print(`Champagne: ${Champagne}`);
-  Console.print(`christmasDiscount: ${christmasDiscount}`);
-  Console.print(`starDiscount: ${starDiscount}`);
-  Console.print(`weekendDiscount: ${weekendDiscount}`);
-  Console.print(`dayDiscount: ${dayDiscount}`);
-  */
 }
